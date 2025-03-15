@@ -1,6 +1,7 @@
 import pandas as pd
 import requests
 import io
+from datetime import datetime
 
 def extract_github_data(url, **kwargs):
     """Extracts data from a given GitHub raw CSV URL."""
@@ -33,6 +34,12 @@ def write_transformed_data(**kwargs):
     transformed_data_json = ti.xcom_pull(task_ids='transform_github_data', key='transformed_data')
     df = pd.read_json(transformed_data_json)
     
-    output_path = "/opt/airflow/dags/transformed_data.csv"
-    df.to_csv(output_path, index=False)
-    print(f"Transformed data written to {output_path}")
+    # output_path = "/opt/airflow/dags/transformed_data.csv"
+    # df.to_csv(output_path, index=False)
+    # print(f"Transformed data written to {output_path}")
+    file_name = ('Financial_data' +'.csv')
+    
+    df.to_csv('abfs://financeg@financialssa.dfs.core.windows.net/Bronze/' + file_name,
+                storage_options={
+                    'account_key': 'Itshouldcontainkeyfromstorageaccountandsecurityandnetworkingandacesskeysandcopythekeyandpasteithere'
+                }, index=False)
