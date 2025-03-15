@@ -3,3 +3,4 @@ logs/
 plugins/
 dags/__pycache__/
 __pycache__/
+requirements.txt/
