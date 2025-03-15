@@ -13,7 +13,7 @@ dag = DAG(
         "owner": "Punam Adhikari",
         "start_date": datetime(2025, 3, 15),
     },
-    schedule_interval=None,
+    schedule_interval="@daily",
     catchup=False
 )
 
